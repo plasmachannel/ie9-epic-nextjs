@@ -1,0 +1,24 @@
+{
+  "presets": [
+    [
+      "next/babel",
+      {
+        "preset-env": {
+          "targets": {
+            "ie": "9"
+          },
+          "useBuiltIns": "usage",
+          "corejs": 3
+        },
+        "@babel/preset-typescript": {},
+        "transform-runtime": {
+          "plugin-transform-react-jsx": {
+            "runtime": "automatic"
+          }
+        }
+      }
+    ]
+  ],
+  "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+}
+
