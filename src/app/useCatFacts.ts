@@ -8,7 +8,7 @@ export function catFactsService() {
 
 export default function useCatFacts() {
     return useQuery(  {
-        queryKey: ['ctcaeVersion'],
+        queryKey: ['catFacts'],
         queryFn: () => catFactsService(),
         staleTime: Infinity,
         retry: 3,

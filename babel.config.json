@@ -2,13 +2,15 @@
   "presets": [
     [
       "next/babel",
+
       {
         "preset-env": {
           "targets": {
-            "ie": "9"
+            "ie": "11"
           },
           "useBuiltIns": "usage",
-          "corejs": 3
+          "corejs": 3,
+          "exclude": ["proposal-dynamic-import"]
         },
         "@babel/preset-typescript": {},
         "transform-runtime": {
@@ -18,7 +20,6 @@
         }
       }
     ]
-  ],
-  "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+  ]
 }
 
