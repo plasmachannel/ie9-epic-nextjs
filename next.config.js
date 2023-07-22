@@ -7,12 +7,27 @@ const nextConfig = {
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
     },
-    webpack: (config) => {
+    webpack: (config, options) => {
+        const {isServer} = options;
+        console.log(config);
+        //console.log({options});
+        config.snapshot.managedPaths = [];
+        // config.entry().then(console.log);
+        config.stats = 'verbose';
         config.module.rules.push({
-            test: /\.(js|jsx|ts|tsx)$/,
+            test: /\.(js|jsx|ts|tsx|mjs)$/,
             exclude: (file) => {
-                const shouldExclude = /node_modules/.test(file) && !file.includes("/node_modules/core-js/");
-                if (shouldExclude) {
+
+                const excludeList = [
+                    "/node_modules/core-js/",
+                    "/node_modules/@babel/",
+                    "@babel",
+                ]
+
+                const isExcluded = excludeList.find(ef => file.includes(ef));
+
+                const shouldExclude = /node_modules/.test(file) && isExcluded;
+                if (!shouldExclude) {
                     console.log(file);
                 }
 
@@ -22,17 +37,24 @@ const nextConfig = {
 
                 return shouldExclude;
             },
+
             use: [{
                 loader: 'babel-loader',
                 options: {
-                    cacheDirectory: true,
+                    // cacheDirectory: true,
                     // And replace .babelrc with babel.config.json...
                     babelrc: false,
                     // ...which might also mean you need this if you are using a monorepo:
                     rootMode: 'upward',
-                }}]
+                }}],
         });
 
+        if (!isServer) {
+            config.resolve = {
+                ...config.resolve,
+                modules: ['src', 'node_modules'],
+            };
+        }
         return config;
     },
 

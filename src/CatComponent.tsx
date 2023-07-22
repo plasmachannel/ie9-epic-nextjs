@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import {QueryClient} from "@tanstack/query-core";
 import useCatFacts from "@/app/useCatFacts";
 
 export default function CatComponent() {
@@ -27,7 +26,7 @@ export default function CatComponent() {
         if (data) {
             setX(JSON.stringify(data));
         }
-    }, [isLoading])
+    }, [isLoading, x, data])
 
     return <div>
         <button onClick={() => alert(x)}> </button>

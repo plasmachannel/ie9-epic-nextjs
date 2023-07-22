@@ -22,7 +22,7 @@ export default function Home() {
                 retry: 3,
             })
             .then(() => console.log('hello'));
-    }, []);
+    }, [queryClient]);
 
     return (
         <main >
